@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+using System.Runtime.ExceptionServices;
+using System.Runtime.CompilerServices;
 
 
 namespace DaYuanSouTi
@@ -30,20 +32,39 @@ namespace DaYuanSouTi
 
             foreach (var file in Directory.GetFiles(_directoryPath, "*.json"))
             {
-                string jsonContent = File.ReadAllText(file);  // 读取JSON文件内容
+
+                string jsonData = File.ReadAllText(file);
+                List<dynamic> questions = JsonConvert.DeserializeObject<List<dynamic>>(jsonData);
                 try
                 {
-                    // 使用 JsonSerializer 解析 JSON 文件内容为 List<Question>
-                    var questions = JsonConvert.DeserializeObject<List<Question>>(jsonContent);
-                    if (questions != null)
+                    for (int i = 0; i < questions.Count; i++)
                     {
-                        Questions.AddRange(questions);  // 添加解析出的题目到 Questions 列表
+                        string question = questions[i].question;
+                        //List<string> options = new List<string>(questions[i].options);
+                        var options = questions[i].options;
+                        //List<string> options = new List<string>((IEnumerable<string>)questions[i].options);
+                        string answer = questions[i].answer;
+                        string explanation = questions[i].explanation;
+
+                        Console.WriteLine($"问题: {question}");
+                        Console.WriteLine("选项:");
+                        for (int j = 0; j < options.Count; j++)
+                        {
+                            Console.WriteLine($"{j + 1}. {options[j]}");
+                        }
+                        Console.WriteLine($"答案: {answer}");
+                        Console.WriteLine($"解释: {explanation}");
+                        Console.WriteLine();
+                        Questions.Add(new Question(question, explanation, answer));
+                        
                     }
+                    Console.WriteLine(1);
                 }
-                catch (Exception ex)
+                catch(Exception e)
                 {
-                    Console.WriteLine($"Error reading JSON from {file}: {ex.Message}");
+                    Console.WriteLine(e.Message);
                 }
+                
             }
         }
 
