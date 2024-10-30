@@ -1,0 +1,14 @@
+D:\C\DaYuanSouTi\DaYuanSouTi\bin\Debug\DaYuanSouTi.exe.config
+D:\C\DaYuanSouTi\DaYuanSouTi\bin\Debug\DaYuanSouTi.exe
+D:\C\DaYuanSouTi\DaYuanSouTi\bin\Debug\DaYuanSouTi.pdb
+D:\C\DaYuanSouTi\DaYuanSouTi\bin\Debug\Newtonsoft.Json.dll
+D:\C\DaYuanSouTi\DaYuanSouTi\bin\Debug\Newtonsoft.Json.xml
+D:\C\DaYuanSouTi\DaYuanSouTi\obj\Debug\DaYuanSouTi.csproj.AssemblyReference.cache
+D:\C\DaYuanSouTi\DaYuanSouTi\obj\Debug\DaYuanSouTi.csproj.SuggestedBindingRedirects.cache
+D:\C\DaYuanSouTi\DaYuanSouTi\obj\Debug\DaYuanSouTi.Form1.resources
+D:\C\DaYuanSouTi\DaYuanSouTi\obj\Debug\DaYuanSouTi.Properties.Resources.resources
+D:\C\DaYuanSouTi\DaYuanSouTi\obj\Debug\DaYuanSouTi.csproj.GenerateResource.cache
+D:\C\DaYuanSouTi\DaYuanSouTi\obj\Debug\DaYuanSouTi.csproj.CoreCompileInputs.cache
+D:\C\DaYuanSouTi\DaYuanSouTi\obj\Debug\DaYuanSouTi.csproj.CopyComplete
+D:\C\DaYuanSouTi\DaYuanSouTi\obj\Debug\DaYuanSouTi.exe
+D:\C\DaYuanSouTi\DaYuanSouTi\obj\Debug\DaYuanSouTi.pdb
