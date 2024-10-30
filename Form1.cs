@@ -17,7 +17,7 @@ namespace DaYuanSouTi
         public Form1()
         {
             InitializeComponent();
-            string questionDirectory = "C:\\题库目录";  // 指定题库目录路径
+            string questionDirectory = "D:/C/DaYuanSouTi/DaYuanSouTi";  // 指定题库目录路径
             var repository = new QuestionRepository(questionDirectory);
             _questionService = new QuestionService(repository);
         }

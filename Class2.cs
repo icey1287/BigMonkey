@@ -28,15 +28,21 @@ namespace DaYuanSouTi
         {
             if (!Directory.Exists(_directoryPath)) return;
 
-            foreach (var file in Directory.GetFiles(_directoryPath, "*.txt"))
+            foreach (var file in Directory.GetFiles(_directoryPath, "*.json"))
             {
-                var lines = File.ReadAllLines(file);
-                if (lines.Length >= 3)
+                string jsonContent = File.ReadAllText(file);  // 读取JSON文件内容
+                try
                 {
-                    string subject = lines[0];  // 第一行是科目
-                    string content = lines[1];  // 第二行是题目内容
-                    string hint = lines[2];     // 第三行是提示信息
-                    Questions.Add(new Question(subject, content, hint));
+                    // 使用 JsonSerializer 解析 JSON 文件内容为 List<Question>
+                    var questions = JsonConvert.DeserializeObject<List<Question>>(jsonContent);
+                    if (questions != null)
+                    {
+                        Questions.AddRange(questions);  // 添加解析出的题目到 Questions 列表
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error reading JSON from {file}: {ex.Message}");
                 }
             }
         }
