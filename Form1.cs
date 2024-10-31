@@ -9,6 +9,7 @@ using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.WinForms;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace DaYuanSouTi
 {
@@ -16,6 +17,7 @@ namespace DaYuanSouTi
     {
         private QuestionService _questionService;
         private int zoom = 100; // 默认缩放
+        private QuestionRepository repository=null;
         private async void InitializeWebView()
         {
             // 等待WebView2运行时初始化
@@ -27,7 +29,7 @@ namespace DaYuanSouTi
             InitializeComponent();
             InitializeWebView();
             string questionDirectory = "../..";  // 指定题库目录路径
-            var repository = new QuestionRepository(questionDirectory);
+            repository = new QuestionRepository(questionDirectory);
             _questionService = new QuestionService(repository);
         }
         public async Task InitializeAndLoadContent(WebView2 webView, string htmlContent)
@@ -154,6 +156,9 @@ namespace DaYuanSouTi
         private void button3_Click(object sender, EventArgs e)
         {
             _questionService.ResetQuestions();
+      
+            webView22.CoreWebView2.NavigateToString("");
+            LoadImageSafely(pictureBox2, "");
             MessageBox.Show("题库已重置！");
         }
 
@@ -217,6 +222,90 @@ namespace DaYuanSouTi
         private void webView22_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+                // 创建新的窗体
+                Form largeWindow = new Form();
+
+                // 设置窗体标题
+                largeWindow.Text = "图文混排窗口";
+
+                // 设置窗体大小和可滚动
+                largeWindow.Width = 800;
+                largeWindow.Height = 600;
+                largeWindow.StartPosition = FormStartPosition.CenterScreen;
+
+                // 创建一个Panel用于容纳所有控件，并启用垂直滚动
+                Panel contentPanel = new Panel();
+                contentPanel.Dock = DockStyle.Fill;
+                contentPanel.AutoScroll = true;
+
+                // 垂直位置跟踪变量
+                int currentY = 10;
+
+                // 遍历TextAndImg列表
+                foreach (var v in repository.Questions.Where(a=>a.IsAnswered==true))
+                {
+                    var item = new Tuple<String, String>(v.Content+"\n\n\n", "../../"+v.Image);
+                    // 添加文字Label
+                    Label textLabel = new Label();
+                    textLabel.Text = item.Item1;
+                    textLabel.AutoSize = true;
+                    textLabel.Font = new Font("Arial", 12);
+                    textLabel.Location = new Point(20, currentY);
+                    contentPanel.Controls.Add(textLabel);
+                    currentY += textLabel.Height + 10;
+                    
+                if(!string.IsNullOrEmpty(item.Item2))
+                {
+                    try
+                    {
+                        PictureBox pictureBox = new PictureBox();
+                        pictureBox.Image = Image.FromFile(item.Item2);
+
+                        // 限制图片最大宽度
+                        int maxWidth = largeWindow.Width - 40;
+                        if (pictureBox.Image.Width > maxWidth)
+                        {
+                            float ratio = (float)maxWidth / pictureBox.Image.Width;
+                            pictureBox.Width = maxWidth;
+                            pictureBox.Height = (int)(pictureBox.Image.Height * ratio);
+                        }
+                        else
+                        {
+                            pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
+                        }
+
+                        pictureBox.Location = new Point(20, currentY);
+                        contentPanel.Controls.Add(pictureBox);
+                        currentY += pictureBox.Height + 20;
+                    }
+                    catch (Exception ex)
+                    {
+                        // 图片加载失败时的错误处理
+                        //Label errorLabel = new Label();
+                        //errorLabel.Text = $"图片加载失败: {ex.Message}";
+                        //errorLabel.AutoSize = true;
+                        //errorLabel.ForeColor = Color.Red;
+                        //errorLabel.Location = new Point(20, currentY);
+                        //contentPanel.Controls.Add(errorLabel);
+                        //currentY += errorLabel.Height + 10;
+                    }
+                }
+          
+                  
+                }
+
+                // 将Panel添加到窗体
+                largeWindow.Controls.Add(contentPanel);
+
+                // 显示窗体
+                largeWindow.ShowDialog();
+            
+
+            
         }
     }
 }

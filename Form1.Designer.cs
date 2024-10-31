@@ -124,6 +124,7 @@
             this.button7.TabIndex = 7;
             this.button7.Text = "历史";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button8
             // 

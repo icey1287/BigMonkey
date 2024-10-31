@@ -17,6 +17,7 @@ namespace DaYuanSouTi
         private readonly string _stateFile = "state.json"; // 保存状态的文件路径
         public List<Question> Questions { get; private set; }
 
+
         public QuestionRepository(string directoryPath)
         {
             _directoryPath = directoryPath;
@@ -75,8 +76,23 @@ namespace DaYuanSouTi
         // 保存当前状态到 JSON 文件
         public void SaveState()
         {
-            var state = JsonConvert.SerializeObject(Questions);
+            //以["Content1","Content2","Content3"]的Json格式将List<Question>写入state.json
+           
+            List<Tuple<String,String>> cont = new List<Tuple<String,String>>();
+            foreach(var question in Questions)
+            {
+                if (question.IsAnswered)
+                {
+                    cont.Add(new Tuple<String,String>( question.Content,question.Image));
+                }
+               
+            }
+            var state = JsonConvert.SerializeObject(cont);
             File.WriteAllText(_stateFile, state);
+            //
+            //
+            //var state = JsonConvert.SerializeObject(Questions);
+            //File.WriteAllText(_stateFile, state);
         }
 
         // 加载保存的状态
@@ -85,19 +101,18 @@ namespace DaYuanSouTi
             if (File.Exists(_stateFile))
             {
                 var state = File.ReadAllText(_stateFile);
-                List<Question> Questions_Anwsered = JsonConvert.DeserializeObject<List<Question>>(state) ?? new List<Question>();//FIXME:这里是A+B-(A∩B)的结果,但实际应该是A-(A∩B)的结果
-                foreach (var question in Questions)
+                List<Tuple<String, String>> oldlstate = JsonConvert.DeserializeObject<List<Tuple<String, String>>>(state) ?? new List<Tuple<String, String>>();
+         foreach(var s in oldlstate)
                 {
-                    foreach (var answeredQuestion in Questions_Anwsered)
+                    foreach (var q in Questions)
                     {
-                        if ((question.Content == answeredQuestion.Content)&&answeredQuestion.IsAnswered==true)
+                        if (s.Item1 == q.Content)
                         {
-                            question.IsAnswered = true;
-                            break;
+                            q.IsAnswered = true;
                         }
                     }
                 }
-            
+
             }
             //从Question中去除Questions_Anwsered
            
