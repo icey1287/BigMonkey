@@ -85,8 +85,22 @@ namespace DaYuanSouTi
             if (File.Exists(_stateFile))
             {
                 var state = File.ReadAllText(_stateFile);
-                Questions = JsonConvert.DeserializeObject<List<Question>>(state) ?? new List<Question>();//FIXME:这里是A+B-(A∩B)的结果,但实际应该是A-(A∩B)的结果
+                List<Question> Questions_Anwsered = JsonConvert.DeserializeObject<List<Question>>(state) ?? new List<Question>();//FIXME:这里是A+B-(A∩B)的结果,但实际应该是A-(A∩B)的结果
+                foreach (var question in Questions)
+                {
+                    foreach (var answeredQuestion in Questions_Anwsered)
+                    {
+                        if ((question.Content == answeredQuestion.Content)&&answeredQuestion.IsAnswered==true)
+                        {
+                            question.IsAnswered = true;
+                            break;
+                        }
+                    }
+                }
+            
             }
+            //从Question中去除Questions_Anwsered
+           
         }
 
         // 重置所有题目为未抽取状态

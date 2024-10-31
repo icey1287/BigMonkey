@@ -40,12 +40,13 @@
             this.button8 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.webView22 = new Microsoft.Web.WebView2.WinForms.WebView2();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.webView22)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -158,16 +159,6 @@
             this.label1.Text = "DaYuan出题欢迎你";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // webBrowser1
-            // 
-            this.webBrowser1.Location = new System.Drawing.Point(46, 28);
-            this.webBrowser1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(22, 24);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(408, 340);
-            this.webBrowser1.TabIndex = 11;
-            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
-            // 
             // imageList1
             // 
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
@@ -189,13 +180,24 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
+            // webView22
+            // 
+            this.webView22.AllowExternalDrop = true;
+            this.webView22.CreationProperties = null;
+            this.webView22.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.webView22.Location = new System.Drawing.Point(29, 37);
+            this.webView22.Name = "webView22";
+            this.webView22.Size = new System.Drawing.Size(452, 331);
+            this.webView22.TabIndex = 14;
+            this.webView22.ZoomFactor = 1D;
+            this.webView22.Click += new System.EventHandler(this.webView22_Click);
+            // 
             // DaYuan出题
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(900, 540);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button8);
@@ -206,11 +208,13 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.webView22);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "DaYuan出题";
             this.Text = "DaYuan出题";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.webView22)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,10 +232,10 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ImageList imageList2;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView22;
     }
 }
 
