@@ -45,7 +45,7 @@ namespace DaYuanSouTi
                         //List<string> options = new List<string>((IEnumerable<string>)questions[i].options);
                         string answer = questions[i].answer;
                         string explanation = questions[i].explanation;
-
+                        string image = questions[i].image;
                         Console.WriteLine($"问题: {question}");
                         Console.WriteLine("选项:");
                         for (int j = 0; j < options.Count; j++)
@@ -55,7 +55,7 @@ namespace DaYuanSouTi
                         Console.WriteLine($"答案: {answer}");
                         Console.WriteLine($"解释: {explanation}");
                         Console.WriteLine();
-                        Questions.Add(new Question(question, explanation, answer));
+                        Questions.Add(new Question(question, image,explanation, answer));
                         
                     }
                     Console.WriteLine(1);
