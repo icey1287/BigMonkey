@@ -3,11 +3,11 @@ using System.Windows.Forms;
 
 namespace DaYuanSouTi
 {
-    public partial class Form1 : Form
+    public partial class DaYuan出题 : Form
     {
         private QuestionService _questionService;
         private float _currentFontSize = 12f; // 默认字体大小
-        public Form1()
+        public DaYuan出题()
         {
             InitializeComponent();
             Console.WriteLine("!!!!!", Environment.CurrentDirectory);
@@ -63,6 +63,26 @@ namespace DaYuanSouTi
         }
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
 
         }
