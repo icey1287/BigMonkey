@@ -29,11 +29,39 @@ namespace DaYuanSouTi
             }
 
             // 在 textBox1 中显示题目内容
-            webBrowser1.DocumentText=$"{question.Subject}\n{question.Content}";
+            String content = @"<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.2/katex.min.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.2/katex.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.2/contrib/auto-render.min.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMathInElement(document.body, {
+                delimiters: [{left: '$$', right: '$$', display: true}]
+            });
+        });
+    </script>
+</head>
+<body>
+"+question.Subject+"\n"+question.Content+@"
+</body>
+</html>";
+            
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("当前HTML:",content);
+            Console.WriteLine("-------------------------");
+            webBrowser1.DocumentText = content;
             LoadImageSafely(pictureBox2, question.Image);
         }
         public static bool LoadImageSafely(PictureBox pictureBox, string imagePath)
         {
+            // 释放之前的图片资源
+            if (pictureBox.Image != null)
+            {
+                pictureBox.Image.Dispose();
+                pictureBox.Image = null;
+            }
             Console.WriteLine($"图片:{imagePath}");
             try
             {
@@ -70,12 +98,7 @@ namespace DaYuanSouTi
                 // 4. 检查文件是否为有效的图片
                 try
                 {
-                    // 释放之前的图片资源
-                    if (pictureBox.Image != null)
-                    {
-                        pictureBox.Image.Dispose();
-                        pictureBox.Image = null;
-                    }
+                    
 
                     // 尝试加载新图片
                     using (var image = Image.FromFile(imagePath))

@@ -85,7 +85,7 @@ namespace DaYuanSouTi
             if (File.Exists(_stateFile))
             {
                 var state = File.ReadAllText(_stateFile);
-                Questions = JsonConvert.DeserializeObject<List<Question>>(state) ?? new List<Question>();
+                Questions = JsonConvert.DeserializeObject<List<Question>>(state) ?? new List<Question>();//FIXME:这里是A+B-(A∩B)的结果,但实际应该是A-(A∩B)的结果
             }
         }
 
