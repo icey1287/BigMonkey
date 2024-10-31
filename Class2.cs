@@ -54,16 +54,20 @@ namespace DaYuanSouTi
                         }
                         Console.WriteLine($"答案: {answer}");
                         Console.WriteLine($"解释: {explanation}");
+                        if (!string.IsNullOrEmpty(image))
+                        {
+                            Console.WriteLine($"图片: {image}");
+                        }
                         Console.WriteLine();
                         Questions.Add(new Question(question, image,explanation, answer));
                         
                     }
-                    Console.WriteLine(1);
                 }
                 catch(Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
+                Console.WriteLine("-----------------加载完毕-------------------");
                 
             }
         }
