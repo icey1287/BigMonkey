@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DaYuanSouTi
@@ -17,7 +10,8 @@ namespace DaYuanSouTi
         public Form1()
         {
             InitializeComponent();
-            string questionDirectory = "E:\\workspace\\VisualStudio\\BigMonkey";  // 指定题库目录路径
+            Console.WriteLine("!!!!!", Environment.CurrentDirectory);
+            string questionDirectory = "../..";  // 指定题库目录路径
             var repository = new QuestionRepository(questionDirectory);
             _questionService = new QuestionService(repository);
         }
