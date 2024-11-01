@@ -35,6 +35,8 @@ namespace DaYuanSouTi
             {
 
                 string jsonData = File.ReadAllText(file);
+                string title = Path.GetFileNameWithoutExtension(file);
+                
                 List<dynamic> questions = JsonConvert.DeserializeObject<List<dynamic>>(jsonData);
                 try
                 {
@@ -60,7 +62,7 @@ namespace DaYuanSouTi
                             Console.WriteLine($"图片: {image}");
                         }
                         Console.WriteLine();
-                        Questions.Add(new Question(question, image,explanation, answer));
+                        Questions.Add(new Question(title,question, image,explanation, answer));
                         
                     }
                 }

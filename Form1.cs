@@ -59,8 +59,8 @@ namespace DaYuanSouTi
     </script>
 </head>
 <body>
-    <h2> {question.Subject} </h2>
-    <p>{question.Content}</p>
+    <h2> {question.Title} </h2>
+    <p>{question.Subject }</p>
 </body>
 </html>";
             
