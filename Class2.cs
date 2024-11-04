@@ -62,7 +62,7 @@ namespace DaYuanSouTi
                             Console.WriteLine($"图片: {image}");
                         }
                         Console.WriteLine();
-                        Questions.Add(new Question(title,question, image,explanation, answer));
+                        Questions.Add(new Question(title, question,question, image,explanation, answer));
                         
                     }
                 }

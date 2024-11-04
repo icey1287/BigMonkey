@@ -2,17 +2,29 @@
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 using Microsoft.Web.WebView2.WinForms;
 using System.Threading.Tasks;
-using System.Linq;
+using Newtonsoft.Json;
+using System.Runtime.ExceptionServices;
+using System.Runtime.CompilerServices;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Text;
+using System.Xml;
+
 namespace DaYuanSouTi
 {
     public partial class DaYuan出题 : Form
     {
         private QuestionService _questionService;
         private int zoom = 100; // 默认缩放
-        private QuestionRepository repository=null;
+        private QuestionRepository repository = null;
+        private static readonly HttpClient httpClient = new HttpClient();
+        Question Question = null;
+
         private async void InitializeWebView()
         {
             // 等待WebView2运行时初始化
@@ -41,14 +53,13 @@ namespace DaYuanSouTi
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            var question = _questionService.GetRandomQuestion();
-            if (question == null)
+            Question = _questionService.GetRandomQuestion();
+            if (Question == null)
             {
                 MessageBox.Show("所有题目已抽完！");
                 return;
             }
-           
-           
+
             // 在 textBox1 中显示题目内容
             String content = $@"
 <!DOCTYPE html>
@@ -59,14 +70,77 @@ namespace DaYuanSouTi
     </script>
 </head>
 <body>
-    <h2> {question.Title} </h2>
-    <p>{question.Subject }</p>
+    <h2> {Question.Title} </h2>
+    <p>{Question.Subject}</p>
 </body>
 </html>";
-            
+
             webView22.CoreWebView2.NavigateToString(content);
-            LoadImageSafely(pictureBox2, question.Image);
+            LoadImageSafely(pictureBox2, Question.Image);
         }
+        private async void button8_Click(object sender, EventArgs e)
+        {
+            if (Question.Hint == null)
+            {
+              
+                string hint = await GetHintFromApi();
+                Question.Hint = hint;
+            }
+            MessageBox.Show(Question.Hint);
+
+        }
+        private  async Task<string> GetHintFromApi()
+        {
+            string apiKey = "sk-809c836211704f2da0c056aa37372def";
+            string url = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions";
+            string jsonContent = $@"{{
+                ""model"": ""qwen-plus"",
+                ""messages"": [
+            {{
+                ""role"": ""system"",
+                ""content"": ""You are a helpful assistant.""
+            }},
+            {{
+                ""role"": ""user"",
+                ""content"": ""基于以下问题,图片和答案，给出一个有用的提示：问题：'{Question.Content}'；图片：'{Question.Image}'；答案：'{Question.Answer}'""
+            }}
+        ]
+              }}";
+            /*
+            try
+            {
+                var testJson = JsonConvert.DeserializeObject<dynamic>(jsonContent);
+                jsonContent = JsonConvert.SerializeObject(testJson, Formatting.Indented);
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine("JSON 格式错误: " + ex.Message);
+                return "JSON 格式错误";
+            }
+            */
+            Console.WriteLine("发送请求内容: " + jsonContent); // 输出请求内容
+
+            using (var content = new StringContent(jsonContent, Encoding.UTF8, "application/json"))
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await httpClient.PostAsync(url, content);
+
+                Console.WriteLine("HTTP 状态码: " + response.StatusCode); // 输出 HTTP 状态码
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseString = await response.Content.ReadAsStringAsync();
+                    dynamic responseObject = JsonConvert.DeserializeObject(responseString);
+                    return responseObject.choices[0].message.content; // 假设API返回的结果结构是这样的
+                }
+                else
+                {
+                    return $"请求失败: {response.StatusCode}";
+                }
+            }
+        }
+      
         public static bool LoadImageSafely(PictureBox pictureBox, string imagePath)
         {
             // 释放之前的图片资源
@@ -195,10 +269,7 @@ namespace DaYuanSouTi
 
         }
 
-        private void button8_Click(object sender, EventArgs e)
-        {
-
-        }
+    
 
         private void webView22_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
