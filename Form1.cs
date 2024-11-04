@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Microsoft.Web.WebView2.WinForms;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Windows.Forms;
 using System.Runtime.ExceptionServices;
 using System.Runtime.CompilerServices;
 using System.Net.Http;
@@ -78,16 +79,58 @@ namespace DaYuanSouTi
             webView22.CoreWebView2.NavigateToString(content);
             LoadImageSafely(pictureBox2, Question.Image);
         }
-        private async void button8_Click(object sender, EventArgs e)
+public class LoadingDialog : Form
+    {
+        private Label loadingLabel;
+        private Label hintTextLabel;
+
+        public LoadingDialog()
         {
+            this.Text = "Loading...";
+            this.ClientSize = new System.Drawing.Size(300, 150);
+
+            loadingLabel = new Label
+            {
+                Text = "正在加载中...",
+                Location = new System.Drawing.Point(50, 30),
+                AutoSize = true
+            };
+            this.Controls.Add(loadingLabel);
+
+            hintTextLabel = new Label
+            {
+                Text = "",
+                Location = new System.Drawing.Point(50, 60),
+                AutoSize = true
+            };
+            this.Controls.Add(hintTextLabel);
+
+            this.StartPosition = FormStartPosition.CenterScreen;
+            }
+
+            public async Task<string> ShowHintAsync(Func<Task<string>> getHintFunc)
+            {
+                this.Show();
+                string hint = await getHintFunc();
+                hintTextLabel.Text = hint;
+                this.Text = "Hint";
+                loadingLabel.Visible = false;
+                hintTextLabel.Visible = true;
+                return hint; // 返回提示信息
+            }
+        }
+    private async void button8_Click(object sender, EventArgs e)
+        {
+            if (Question == null) return;
             if (Question.Hint == null)
             {
-              
-                string hint = await GetHintFromApi();
-                Question.Hint = hint;
+                using (LoadingDialog loadingDialog = new LoadingDialog())
+                {
+                    string hint = await loadingDialog.ShowHintAsync(GetHintFromApi);
+                    Question.Hint = hint;
+                }
             }
             MessageBox.Show(Question.Hint);
-
         }
         private  async Task<string> GetHintFromApi()
         {
