@@ -7,12 +7,10 @@ using System.Collections.Generic;
 using Microsoft.Web.WebView2.WinForms;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using System.Windows.Forms;
 using System.Runtime.ExceptionServices;
 using System.Runtime.CompilerServices;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using System.Text;
 using System.Xml;
 
@@ -145,7 +143,7 @@ public class LoadingDialog : Form
             }},
             {{
                 ""role"": ""user"",
-                ""content"": ""基于以下问题,图片和答案，给出一个有用的提示：问题：'{Question.Content}'；图片：'{Question.Image}'；答案：'{Question.Answer}'""
+                ""content"": ""基于以下问题,图片（如果有图片，请描述图片内容）和答案，请使用文字描述公式，不要出现任何符号和公式！！，给出一个有用的提示：问题：'{Question.Content.Replace("\\", "\\\\")}'；图片：'{Question.Image}'；答案：'{Question.Answer.Replace("\\", "\\\\")}'""
             }}
         ]
               }}";
@@ -175,7 +173,7 @@ public class LoadingDialog : Form
                 {
                     string responseString = await response.Content.ReadAsStringAsync();
                     dynamic responseObject = JsonConvert.DeserializeObject(responseString);
-                    return responseObject.choices[0].message.content; // 假设API返回的结果结构是这样的
+                    return responseObject.choices[0].message.content; 
                 }
                 else
                 {

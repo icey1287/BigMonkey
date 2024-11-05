@@ -1,0 +1,62 @@
+[
+    {
+        "question": "1. 求 \\( f(x) = x^3 - 3x^2 + 2x \\) 的导数。",
+        "options": ["\\( 3x^2 - 6x + 2 \\)", "\\( 3x^2 + 6x - 2 \\)", "\\( 3x^2 - 2x + 6 \\)", "\\( 2x^3 - 6x \\)"],
+        "answer": "\\( 3x^2 - 6x + 2 \\)",
+        "explanation": "根据导数的规则，\\( f'(x) = 3x^2 - 6x + 2 \\)。"
+    },
+    {
+        "question": "2. 设定积分 \\( \\int_0^2 (3x^2 + 1)\\, dx \\) 的值为多少？",
+        "options": ["10", "12", "14", "16"],
+        "answer": "12",
+        "explanation": "通过积分，\\( \\int_0^2 (3x^2 + 1) dx = \\left[ x^3 + x \\right]_0^2 = 8 + 2 = 12 \\)。"
+    },
+    {
+        "question": "3. 如果函数 \\( f(x) = \\sin(x) \\)，它的二阶导数是什么？",
+        "options": ["\\( -\\sin(x) \\)", "\\( \\cos(x) \\)", "\\( -\\cos(x) \\)", "\\( \\sin(x) \\)"],
+        "answer": "\\( -\\sin(x) \\)",
+        "explanation": "\\( f'(x) = \\cos(x) \\)，\\( f''(x) = -\\sin(x) \\)。"
+    },
+    {
+        "question": "4. 求函数 \\( f(x) = x^4 - 4x^3 + 6x^2 - 4x + 1 \\) 的极小值点。",
+        "options": ["x = 1", "x = 2", "x = 3", "x = 0"],
+        "answer": "x = 1",
+        "explanation": "通过求导并求解，函数在 x = 1 处有极小值点。"
+    },
+    {
+        "question": "5. 下列哪个是函数 \\( f(x) = e^x \\) 的原函数？",
+        "options": ["\\( e^x + C \\)", "\\( \\frac{1}{e^x} + C \\)", "\\( \\ln(x) + C \\)", "\\( xe^x + C \\)"],
+        "answer": "\\( e^x + C \\)",
+        "explanation": "函数 \\( f(x) = e^x \\) 的不定积分是 \\( e^x + C \\)。"
+    },
+    {
+        "question": "6. 计算定积分 \\( \\int_0^1 (x^2 - x) dx \\)。",
+        "options": ["-\\( \\frac{1}{6} \\)", "0", "1", "\\( \\frac{1}{6} \\)"],
+        "answer": "-\\( \\frac{1}{6} \\)",
+        "explanation": "通过积分得：\\( \\int_0^1 (x^2 - x) dx = \\left[ \\frac{x^3}{3} - \\frac{x^2}{2} \\right]_0^1 = -\\frac{1}{6} \\)。"
+    },
+    {
+        "question": "7. 函数 \\( f(x) = \\ln(x) \\) 的导数是？",
+        "options": ["\\( \\frac{1}{x} \\)", "\\( \\ln'(x) = 1 \\)", "\\( \\ln(x^2) \\)", "\\( \\frac{2}{x} \\)"],
+        "answer": "\\( \\frac{1}{x} \\)",
+        "explanation": "\\( \\frac{d}{dx} \\ln(x) = \\frac{1}{x} \\)。"
+    },
+    {
+        "question": "8. 求解极限：\\( \\lim_{x \\to 0} \\frac{\\sin(x)}{x} \\)。",
+        "options": ["0", "1", "无穷", "不存在"],
+        "answer": "1",
+        "explanation": "标准极限公式：\\( \\lim_{x \\to 0} \\frac{\\sin(x)}{x} = 1 \\)。"
+    },
+    {
+        "question": "9. 若 \\( f'(x) = 2x \\)，则 \\( f(x) \\) 为？",
+        "options": ["\\( x^2 + C \\)", "\\( 2x + C \\)", "\\( 2x^2 + C \\)", "\\( x + C \\)"],
+        "answer": "\\( x^2 + C \\)",
+        "explanation": "反导数，\\( f(x) = \\int 2x dx = x^2 + C \\)。"
+    },
+    {
+        "question": "10. 计算定积分：\\( \\int_0^3 2x dx \\)。",
+        "options": ["6", "9", "12", "18"],
+        "answer": "9",
+        "explanation": "\\( \\int_0^3 2x dx = \\left[ x^2 \\right]_0^3 = 9 \\)。"
+    }
+]
