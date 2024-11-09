@@ -34,10 +34,39 @@ namespace DaYuanSouTi
         {
             InitializeComponent();
             InitializeWebView();
-            string questionDirectory = "../..";  // 指定题库目录路径
+            //string questionDirectory = "../..";  // 指定题库目录路径
+            string questionDirectory = SelectQuestionDirectory();
+            if (!string.IsNullOrEmpty(questionDirectory))
+            {
+                repository = new QuestionRepository(questionDirectory);
+                _questionService = new QuestionService(repository);
+            }
+            else
+            {
+                MessageBox.Show("未选择题库目录，程序将无法正常运行。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close(); 
+            }
             repository = new QuestionRepository(questionDirectory);
             _questionService = new QuestionService(repository);
         }
+        private string SelectQuestionDirectory()
+        {
+            using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
+            {
+                folderDialog.Description = "请选择题库目录";
+                folderDialog.ShowNewFolderButton = false; 
+
+                if (folderDialog.ShowDialog() == DialogResult.OK)
+                {
+                    return folderDialog.SelectedPath;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
         public async Task InitializeAndLoadContent(WebView2 webView, string htmlContent)
         {
             // 使用 EnsureCoreWebView2Async 确保 WebView2 的核心已初始化
@@ -143,7 +172,7 @@ public class LoadingDialog : Form
             }},
             {{
                 ""role"": ""user"",
-                ""content"": ""基于以下问题,图片（如果有图片，请描述图片内容）和答案，请使用文字描述公式，不要出现任何符号和公式！！，给出一个有用的提示：问题：'{Question.Content.Replace("\\", "\\\\")}'；图片：'{Question.Image}'；答案：'{Question.Answer.Replace("\\", "\\\\")}'""
+                ""content"": ""基于以下问题和答案，请使用文字描述公式，不要出现任何符号和公式！！，给出一个有用的提示：问题：'{Question.Content.Replace("\\", "\\\\")}'；图片：'{Question.Image}'；答案：'{Question.Answer.Replace("\\", "\\\\")}'""
             }}
         ]
               }}";
