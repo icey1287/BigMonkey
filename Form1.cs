@@ -176,18 +176,7 @@ public class LoadingDialog : Form
             }}
         ]
               }}";
-            /*
-            try
-            {
-                var testJson = JsonConvert.DeserializeObject<dynamic>(jsonContent);
-                jsonContent = JsonConvert.SerializeObject(testJson, Formatting.Indented);
-            }
-            catch (JsonException ex)
-            {
-                Console.WriteLine("JSON 格式错误: " + ex.Message);
-                return "JSON 格式错误";
-            }
-            */
+
             Console.WriteLine("发送请求内容: " + jsonContent); // 输出请求内容
 
             using (var content = new StringContent(jsonContent, Encoding.UTF8, "application/json"))
@@ -302,7 +291,6 @@ public class LoadingDialog : Form
             zoom +=5;
             webView22.ZoomFactor = zoom / 100.0f;
             //webView22缩放增加
-            //webView22.Document.Body.Style = $"zoom:{zoom}%";
             webView22.Update();
         }
 
@@ -310,7 +298,6 @@ public class LoadingDialog : Form
         {
             zoom = Math.Max(50, zoom -5);  // 最小缩放50%
             webView22.ZoomFactor = zoom / 100.0f;
-            //webView22.Document.Body.Style = $"zoom:{zoom}%";
             webView22.Update();
         }
 
@@ -455,6 +442,63 @@ public class LoadingDialog : Form
                         return "image/jpeg"; // 默认:JPEG
                 }
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

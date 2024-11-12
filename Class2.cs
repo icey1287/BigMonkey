@@ -43,9 +43,7 @@ namespace DaYuanSouTi
                     for (int i = 0; i < questions.Count; i++)
                     {
                         string question = questions[i].question;
-                        //List<string> options = new List<string>(questions[i].options);
                         var options = questions[i].options;
-                        //List<string> options = new List<string>((IEnumerable<string>)questions[i].options);
                         string answer = questions[i].answer;
                         string explanation = questions[i].explanation;
                         string image = questions[i].image;
